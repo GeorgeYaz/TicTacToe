@@ -1,5 +1,8 @@
 from random import randint
 
+board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+
+
 def config_players():
     while True:
         try:
@@ -18,19 +21,72 @@ def first_to_start(name_1, name_2):
     first = randint(1, 2)
     print()
     if first == 1:
+        n1 = True
+        n2 = False
         print(f"{name_1} you are going to start first,", end=' ')
         name_1_sign = input("choose you sign (X or O): ")
+        name_1_sign = name_1_sign.upper()
         if name_1_sign == "X" or name_1_sign == "x":
             name_2_sign = "O"
         elif name_1_sign == "O" or name_1_sign == "o":
             name_2_sign = "X"
 
     elif first == 2:
+        n1 = False
+        n2 = True
         print(f"{name_2} you are going to start first,", end=' ')
         name_2_sign = input("choose you sign (X or O): ")
-        if name_2_sign == "X" or name_2_sign == "x":
+        name_2_sign = name_2_sign.upper()
+        if name_2_sign == "X":
             name_1_sign = "O"
-        elif name_2_sign == "O" or name_2_sign == "o":
+        elif name_2_sign == "O":
             name_1_sign = "X"
     print(f"Great! so {name_1} has the sign \"{name_1_sign}\" and {name_2} has \"{name_2_sign}\"")
-    return name_1_sign, name_2_sign
+    return name_1_sign, name_2_sign, n1, n2
+
+
+def board_update(user_input, sign, board):
+    board[user_input] = sign
+    return board
+
+
+def taking_entry(name_1, name_2 , n1, n2, name_1_sign, name_2_sign):
+    global board
+    if n1:
+        if check_board():
+            user_input = input(f"{name_1} enter your position (1->9): ")
+            user_input = int(user_input)
+            board = board_update(user_input, name_1_sign, board)
+            print_board()
+            if check_board():
+                user_input = input(f"{name_2} enter your position (1->9): ")
+                user_input = int(user_input)
+                board = board_update(user_input, name_2_sign, board)
+                print_board()
+    elif n2:
+        if check_board():
+            user_input = input(f"{name_2} enter your position (1->9): ")
+            user_input = int(user_input)
+            board = board_update(user_input, name_2_sign, board)
+            print_board()
+            if check_board():
+                user_input = input(f"{name_1} enter your position (1->9): ")
+                user_input = int(user_input)
+                board = board_update(user_input, name_1_sign, board)
+                print_board()
+
+
+def print_board():
+    global board
+    for i in range(1, len(board)):
+        print(board[i], end=' ')
+        if i % 3 == 0:
+            print()
+
+
+def check_board():
+    global board
+    if ' ' not in board:
+        return False
+    else:
+        return True

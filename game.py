@@ -16,7 +16,7 @@ print("--> In order to play the game you have to choose a position, and this can
 intro_list = ['#', 1, 2, 3, 4, 5, 6, 7, 8, 9]
 for i in range(1, len(intro_list)):
     print(intro_list[i], end=' ')
-    if intro_list[i] % 3 == 0:
+    if i % 3 == 0:
         print()
 for i in range(len(welcome_message)):
     print("-", end="")
@@ -36,4 +36,8 @@ while True:
         continue
 
 name1, name2 = game_functions.config_players()
-name1_sign, name2_sign = game_functions.first_to_start(name1, name2)
+name1_sign, name2_sign, n1, n2 = game_functions.first_to_start(name1, name2)
+
+# Let the first user enter the first position
+while game_functions.check_board():
+    game_functions.taking_entry(name1, name2, n1, n2, name1_sign, name2_sign)

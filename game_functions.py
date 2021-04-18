@@ -13,8 +13,7 @@ def config_players():
             continue
         else:
             print(f"{name_1} and {name_2} you are welcome, let's start by choosing the sign for each one of you.")
-            break
-    return name_1, name_2
+            return name_1, name_2
 
 
 def first_to_start(name_1, name_2):
@@ -41,6 +40,7 @@ def first_to_start(name_1, name_2):
             name_1_sign = "O"
         elif name_2_sign == "O":
             name_1_sign = "X"
+
     print(f"Great! so {name_1} has the sign \"{name_1_sign}\" and {name_2} has \"{name_2_sign}\"")
     return name_1_sign, name_2_sign, n1, n2
 
@@ -64,7 +64,8 @@ def taking_entry(name_1, name_2, n1, n2, name_1_sign, name_2_sign):
             else:
                 board = board_update(user_input, name_1_sign)
                 print_board()
-                if check_winner():
+                is_win, ignore = check_winner()
+                if is_win:
                     return
                 if check_board():
                     user_input = input(f"{name_2} enter your position (1->9): ")
@@ -76,7 +77,8 @@ def taking_entry(name_1, name_2, n1, n2, name_1_sign, name_2_sign):
                     else:
                         board = board_update(user_input, name_2_sign)
                         print_board()
-                        if check_winner():
+                        is_win, ignore = check_winner()
+                        if is_win:
                             return
     elif n2:
         if check_board():
@@ -89,7 +91,8 @@ def taking_entry(name_1, name_2, n1, n2, name_1_sign, name_2_sign):
             else:
                 board = board_update(user_input, name_2_sign)
                 print_board()
-                if check_winner():
+                is_win, ignore = check_winner()
+                if is_win:
                     return
                 if check_board():
                     user_input = input(f"{name_1} enter your position (1->9): ")
@@ -101,7 +104,8 @@ def taking_entry(name_1, name_2, n1, n2, name_1_sign, name_2_sign):
                     else:
                         board = board_update(user_input, name_1_sign)
                         print_board()
-                        if check_winner():
+                        is_win, ignore = check_winner()
+                        if is_win:
                             return
 
 
@@ -129,20 +133,44 @@ def check_winner():
     win_x = ['X', 'X', 'X']
     win_o = ['O', 'O', 'O']
     if board[1:4] == win_x or board[1:4] == win_o:
-        return True
+        if board[1] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[4:7] == win_x or board[4:7] == win_o:
-        return True
+        if board[4] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[7:10] == win_x or board[7:10] == win_o:
-        return True
+        if board[7] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[1:8:3] == win_x or board[1:8:3] == win_o:
-        return True
+        if board[1] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[2:9:3] == win_x or board[2:9:3] == win_o:
-        return True
+        if board[2] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[3:10:3] == win_x or board[3:10:3] == win_o:
-        return True
+        if board[3] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[1:10:4] == win_x or board[1:10:4] == win_o:
-        return True
+        if board[1] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     elif board[3:8:2] == win_x or board[3:8:2] == win_o:
-        return True
+        if board[3] == "X":
+            return True, "X"
+        else:
+            return True, "O"
     else:
-        return False
+        return False, " "

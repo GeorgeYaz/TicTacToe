@@ -37,11 +37,21 @@ while True:
 
 name1, name2 = game_functions.config_players()
 name1_sign, name2_sign, n1, n2 = game_functions.first_to_start(name1, name2)
+game_functions.print_board()
 
 # Let the first user enter the first position
 while game_functions.check_board():
     print()
     game_functions.taking_entry(name1, name2, n1, n2, name1_sign, name2_sign)
-    if game_functions.check_winner():
+    is_win, sign = game_functions.check_winner()
+    if is_win:
         print("We have a winner!")
-        break
+        if sign == name1_sign:
+            print("*********************************")
+            print(f"Congratulations {name1} you won")
+            exit()
+        elif sign == name2_sign:
+            print("*********************************")
+            print(f"Congratulations {name2} you won")
+            exit()
+print("Ops! I think we have a tie here :-)")

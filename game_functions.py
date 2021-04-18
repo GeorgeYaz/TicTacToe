@@ -57,39 +57,62 @@ def taking_entry(name_1, name_2, n1, n2, name_1_sign, name_2_sign):
         if check_board():
             user_input = input(f"{name_1} enter your position (1->9): ")
             user_input = int(user_input)
-            board = board_update(user_input, name_1_sign)
-            print_board()
-            if check_winner():
-                return
-            if check_board():
-                user_input = input(f"{name_2} enter your position (1->9): ")
-                user_input = int(user_input)
-                board = board_update(user_input, name_2_sign)
-                print_board()
-                if check_winner():
-                    return
-    elif n2:
-        if check_board():
-            user_input = input(f"{name_2} enter your position (1->9): ")
-            user_input = int(user_input)
-            board = board_update(user_input, name_2_sign)
-            print_board()
-            if check_winner():
-                return
-            if check_board():
+            while board[user_input] != ' ':
+                print("This place is already taken!")
                 user_input = input(f"{name_1} enter your position (1->9): ")
                 user_input = int(user_input)
+            else:
                 board = board_update(user_input, name_1_sign)
                 print_board()
                 if check_winner():
                     return
+                if check_board():
+                    user_input = input(f"{name_2} enter your position (1->9): ")
+                    user_input = int(user_input)
+                    while board[user_input] != ' ':
+                        print("This place is already taken!")
+                        user_input = input(f"{name_2} enter your position (1->9): ")
+                        user_input = int(user_input)
+                    else:
+                        board = board_update(user_input, name_2_sign)
+                        print_board()
+                        if check_winner():
+                            return
+    elif n2:
+        if check_board():
+            user_input = input(f"{name_2} enter your position (1->9): ")
+            user_input = int(user_input)
+            while board[user_input] != ' ':
+                print("This place is already taken!")
+                user_input = input(f"{name_2} enter your position (1->9): ")
+                user_input = int(user_input)
+            else:
+                board = board_update(user_input, name_2_sign)
+                print_board()
+                if check_winner():
+                    return
+                if check_board():
+                    user_input = input(f"{name_1} enter your position (1->9): ")
+                    user_input = int(user_input)
+                    while board[user_input] != ' ':
+                        print("This place is already taken!")
+                        user_input = input(f"{name_1} enter your position (1->9): ")
+                        user_input = int(user_input)
+                    else:
+                        board = board_update(user_input, name_1_sign)
+                        print_board()
+                        if check_winner():
+                            return
 
 
 def print_board():
     global board
     for i in range(1, len(board)):
-        print(board[i], end=' ')
+        print(" " + board[i], end='   ')
         if i % 3 == 0:
+            print()
+            for j in range(1, 4):
+                print("---|", end=" ")
             print()
 
 
@@ -116,6 +139,10 @@ def check_winner():
     elif board[2:9:3] == win_x or board[2:9:3] == win_o:
         return True
     elif board[3:10:3] == win_x or board[3:10:3] == win_o:
+        return True
+    elif board[1:10:4] == win_x or board[1:10:4] == win_o:
+        return True
+    elif board[3:8:2] == win_x or board[3:8:2] == win_o:
         return True
     else:
         return False

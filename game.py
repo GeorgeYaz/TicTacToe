@@ -41,3 +41,6 @@ name1_sign, name2_sign, n1, n2 = game_functions.first_to_start(name1, name2)
 # Let the first user enter the first position
 while game_functions.check_board():
     game_functions.taking_entry(name1, name2, n1, n2, name1_sign, name2_sign)
+    if game_functions.check_winner():
+        print("We have a winner!")
+        break

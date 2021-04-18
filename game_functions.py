@@ -45,35 +45,44 @@ def first_to_start(name_1, name_2):
     return name_1_sign, name_2_sign, n1, n2
 
 
-def board_update(user_input, sign, board):
+def board_update(user_input, sign):
+    global board
     board[user_input] = sign
     return board
 
 
-def taking_entry(name_1, name_2 , n1, n2, name_1_sign, name_2_sign):
+def taking_entry(name_1, name_2, n1, n2, name_1_sign, name_2_sign):
     global board
     if n1:
         if check_board():
             user_input = input(f"{name_1} enter your position (1->9): ")
             user_input = int(user_input)
-            board = board_update(user_input, name_1_sign, board)
+            board = board_update(user_input, name_1_sign)
             print_board()
+            if check_winner():
+                return
             if check_board():
                 user_input = input(f"{name_2} enter your position (1->9): ")
                 user_input = int(user_input)
-                board = board_update(user_input, name_2_sign, board)
+                board = board_update(user_input, name_2_sign)
                 print_board()
+                if check_winner():
+                    return
     elif n2:
         if check_board():
             user_input = input(f"{name_2} enter your position (1->9): ")
             user_input = int(user_input)
-            board = board_update(user_input, name_2_sign, board)
+            board = board_update(user_input, name_2_sign)
             print_board()
+            if check_winner():
+                return
             if check_board():
                 user_input = input(f"{name_1} enter your position (1->9): ")
                 user_input = int(user_input)
-                board = board_update(user_input, name_1_sign, board)
+                board = board_update(user_input, name_1_sign)
                 print_board()
+                if check_winner():
+                    return
 
 
 def print_board():
@@ -90,3 +99,23 @@ def check_board():
         return False
     else:
         return True
+
+
+def check_winner():
+    global board
+    win_x = ['X', 'X', 'X']
+    win_o = ['O', 'O', 'O']
+    if board[1:4] == win_x or board[1:4] == win_o:
+        return True
+    elif board[4:7] == win_x or board[4:7] == win_o:
+        return True
+    elif board[7:10] == win_x or board[7:10] == win_o:
+        return True
+    elif board[1:8:3] == win_x or board[1:8:3] == win_o:
+        return True
+    elif board[2:9:3] == win_x or board[2:9:3] == win_o:
+        return True
+    elif board[3:10:3] == win_x or board[3:10:3] == win_o:
+        return True
+    else:
+        return False

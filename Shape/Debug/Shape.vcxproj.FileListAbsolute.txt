@@ -1,0 +1,2 @@
+D:\Working\Computing 2\Lab 9\Shape\Debug\Shape.lib
+D:\Working\Computing 2\Lab 9\Shape\Debug\Shape.pdb

@@ -1,0 +1,3 @@
+﻿  Circle.cpp
+D:\Working\Computing 2\Lab 9\Shape\Shape.h(9,33): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Shape.vcxproj -> D:\Working\Computing 2\Lab 9\Shape\Debug\Shape.lib
